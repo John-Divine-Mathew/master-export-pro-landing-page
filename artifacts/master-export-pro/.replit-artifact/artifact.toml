@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Master Export Pro"
+description = "A product landing page for Master Export Pro, export business management software that connects customer enquiries, quotations, orders, shipments, invoices, and payments in one workflow."
+version = "1.0.0"
+id = "artifacts/master-export-pro"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24401
+
+[services.development]
+run = "pnpm --filter @workspace/master-export-pro run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/master-export-pro", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/master-export-pro/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24401"
+BASE_PATH = "/"
