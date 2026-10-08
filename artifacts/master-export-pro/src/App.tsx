@@ -59,11 +59,17 @@ const productAreas = [
   { icon: Settings2, label: 'Settings', description: 'The essentials for your workspace.' },
 ];
 
+const highlightItems = [
+  'Modified to meet your requirements',
+  'Enquiry to payment, clearly connected',
+  'Professional, responsive interface',
+  'Customers, products and operations together',
+];
+
 function Brand({ footer = false }: { footer?: boolean }) {
   return (
     <a className={`brand ${footer ? 'footer-brand' : ''}`} href="#top" aria-label="Master Export Pro home">
-      <span className="brand-mark" aria-hidden="true" />
-      <span className="brand-name">Master <span>Export Pro</span></span>
+      <img className="brand-logo" src="/images/master-export-pro-logo.png" alt="" />
     </a>
   );
 }
@@ -73,7 +79,7 @@ function ProductPreview() {
     <div className="preview-frame" aria-label="Illustrative dashboard preview">
       <div className="app-window">
         <aside className="app-sidebar" aria-label="Product navigation preview">
-          <div className="app-brand"><span className="brand-mark" aria-hidden="true" /> Master Export Pro</div>
+          <div className="app-brand"><img className="app-brand-logo" src="/images/master-export-pro-logo.png" alt="Master Export Pro" /></div>
           <div className="side-label">Workspace</div>
           <div className="side-item active"><LayoutDashboard /> Dashboard</div>
           <div className="side-item"><Users /> Customers</div>
@@ -215,7 +221,7 @@ function App() {
               <a className="button button-outline" href="#workflow">Follow an order <ArrowDownRight size={15} /></a>
             </div>
             <div className="hero-note"><Globe2 size={14} /> Built around the day-to-day work of export businesses</div>
-            <div className="workflow-line" aria-label="Export workflow: enquiry, quotation, sales order, shipment, invoice, payment">
+            <div className="workflow-line" role="region" tabIndex={0} aria-label="Export workflow: enquiry, quotation, sales order, shipment, invoice, payment">
               {processSteps.map((step, index) => (
                 <div className="workflow-step" key={step.label}>
                   <b>0{index + 1}</b><span>{step.label}</span>
@@ -223,6 +229,7 @@ function App() {
                 </div>
               ))}
             </div>
+            <p className="workflow-scroll-hint">Scroll to see all six stages</p>
           </div>
         </section>
 
@@ -237,7 +244,7 @@ function App() {
               <h2>Less chasing across files.<br />More context at every step.</h2>
               <p>When the same buyer and order details live in separate places, follow-up gets fragmented. Keep the journey together, so the next stage starts with the information already in hand.</p>
             </div>
-            <div className="workflow-grid">
+            <ol className="workflow-grid" aria-label="Order journey stages">
               {processSteps.map((step, index) => {
                 const StepIcon = step.icon;
                 const descriptions = [
@@ -249,14 +256,40 @@ function App() {
                   'Track payment status without losing the order context.',
                 ];
                 return (
-                  <article className="workflow-card" key={step.label}>
-                    <div className="step-num">STAGE 0{index + 1}<ArrowRight size={12} /></div>
-                    <div className="step-icon"><StepIcon /></div>
+                  <li className="workflow-card" key={step.label}>
+                    <div className="step-num">STAGE 0{index + 1}<span aria-hidden="true">0{index + 1}</span></div>
+                    <div className="step-icon"><StepIcon aria-hidden="true" /></div>
                     <h3>{step.label}</h3>
                     <p>{descriptions[index]}</p>
-                  </article>
+                  </li>
                 );
               })}
+            </ol>
+          </div>
+        </section>
+
+        <section className="highlights-section" aria-labelledby="highlights-title">
+          <div className="wrap highlights-intro">
+            <div className="highlights-copy">
+              <div className="eyebrow">Highlights</div>
+              <h2 id="highlights-title">A clearer way to manage export work.</h2>
+              <p>The software was modified to meet your requirements, with the export order journey at the center of the experience.</p>
+            </div>
+            <div className="highlights-callout">
+              <span className="highlights-check"><Check size={16} aria-hidden="true" /></span>
+              <div>
+                <span>Project highlight</span>
+                <strong>Professional UI. Connected workflow. Responsive layout.</strong>
+              </div>
+            </div>
+          </div>
+          <div className="highlights-marquee" role="region" aria-label="Project highlights" tabIndex={0}>
+            <div className="highlights-track">
+              {[false, true].map((isDuplicate) => (
+                <ul className="highlights-group" aria-hidden={isDuplicate || undefined} key={String(isDuplicate)}>
+                  {highlightItems.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              ))}
             </div>
           </div>
         </section>
