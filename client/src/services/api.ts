@@ -39,7 +39,10 @@ export interface SystemStats {
   };
 }
 
-const API_BASE = '/api';
+// Hosted backend URL on Render
+const RENDER_BACKEND_URL = 'https://master-export-pro-landing-page-2.onrender.com';
+const RAW_API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? RENDER_BACKEND_URL : '');
+const API_BASE = RAW_API_URL ? `${RAW_API_URL.replace(/\/$/, '')}/api` : '/api';
 
 export async function fetchHealth(): Promise<{ status: string; stack: string; mongoDB: string }> {
   try {
